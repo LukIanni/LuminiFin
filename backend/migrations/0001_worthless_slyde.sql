@@ -1,0 +1,1 @@
+ALTER TABLE "goals" ALTER COLUMN "current_amount" SET DEFAULT '0';

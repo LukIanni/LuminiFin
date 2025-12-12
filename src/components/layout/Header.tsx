@@ -1,4 +1,7 @@
-import { Sparkles } from "lucide-react";
+import { Sparkles, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
   title?: string;
@@ -6,6 +9,14 @@ interface HeaderProps {
 }
 
 export function Header({ title = "LuminiFin", subtitle }: HeaderProps) {
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
     <header className="sticky top-0 z-40 bg-background/95 backdrop-blur-lg border-b border-border/50">
       <div className="flex items-center justify-between px-4 py-3 max-w-md mx-auto">
@@ -20,6 +31,19 @@ export function Header({ title = "LuminiFin", subtitle }: HeaderProps) {
             )}
           </div>
         </div>
+
+        {user && (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleLogout}
+            title="Fazer logout"
+            className="text-muted-foreground hover:text-destructive"
+          >
+            <LogOut className="w-4 h-4 mr-1" />
+            Sair
+          </Button>
+        )}
       </div>
     </header>
   );

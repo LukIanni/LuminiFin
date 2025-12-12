@@ -1,22 +1,12 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
 # Dependencies
-node_modules
+node_modules/
 package-lock.json
 yarn.lock
 pnpm-lock.yaml
 
 # Build outputs
-dist
-dist-ssr
-build
+dist/
+build/
 *.local
 
 # Environment variables
@@ -25,11 +15,23 @@ build
 .env.*.local
 .env.production.local
 
-# IDE & Editor directories
+# Database
+*.db
+*.db-journal
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDE & Editor
 .vscode/*
 !.vscode/extensions.json
-.idea
-.vscode-extensions
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
@@ -44,10 +46,10 @@ desktop.ini
 
 # Development
 .cache
-.parcel-cache
-out
-
-# Misc
 .turbo
+coverage/
 .next
-coverage
+
+# Migrations (generated files, but keep the directory)
+# Uncomment if needed:
+# migrations/

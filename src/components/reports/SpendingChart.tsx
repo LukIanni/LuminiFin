@@ -5,6 +5,7 @@ export interface SpendingCategory {
   name: string;
   value: number;
   color: string;
+  [key: string]: any;
 }
 
 interface SpendingChartProps {

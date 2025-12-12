@@ -1,35 +1,17 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { GoalCard, Goal } from "@/components/goals/GoalCard";
 import { Button } from "@/components/ui/button";
 import { Plus, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-
-const sampleGoals: Goal[] = [
-  {
-    id: "1",
-    title: "Reserva de Emergência",
-    targetAmount: 10000,
-    currentAmount: 3500,
-    deadline: new Date(2025, 11, 31),
-  },
-  {
-    id: "2",
-    title: "Viagem de Férias",
-    targetAmount: 5000,
-    currentAmount: 2800,
-    deadline: new Date(2025, 6, 15),
-  },
-  {
-    id: "3",
-    title: "Notebook Novo",
-    targetAmount: 4500,
-    currentAmount: 4500,
-  },
-];
+import { useGoals } from "@/contexts/GoalsContext";
 
 export default function Metas() {
-  const [goals] = useState<Goal[]>(sampleGoals);
+  const { goals, fetchGoals } = useGoals();
+
+  useEffect(() => {
+    fetchGoals();
+  }, []);
 
   const totalSaved = goals.reduce((sum, g) => sum + g.currentAmount, 0);
   const totalTarget = goals.reduce((sum, g) => sum + g.targetAmount, 0);
@@ -70,34 +52,52 @@ export default function Metas() {
             </Button>
           </div>
 
-          <div className="space-y-3">
-            {goals.map((goal, index) => (
-              <div 
-                key={goal.id}
-                style={{ animationDelay: `${index * 100}ms` }}
-                className="animate-slide-up"
-              >
-                <GoalCard goal={goal} />
-              </div>
-            ))}
-          </div>
+          {goals.length === 0 ? (
+            <Card variant="chat-secondary" className="animate-fade-in">
+              <CardContent className="p-6 text-center">
+                <p className="text-sm text-muted-foreground">
+                  Você ainda não tem metas. Crie uma para começar a poupar! 🎯
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="space-y-3">
+              {goals.map((goal, index) => (
+                <div 
+                  key={goal.id}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="animate-slide-up"
+                >
+                  <GoalCard goal={goal} />
+                </div>
+              ))}
+            </div>
+          )}
         </section>
 
         {/* AI tip */}
-        <Card variant="chat-primary" className="animate-fade-in">
-          <CardContent className="p-4">
-            <div className="flex items-start gap-3">
-              <Sparkles className="w-5 h-5 flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="text-sm font-medium">Dica do LuminiFin</p>
-                <p className="text-sm mt-1 opacity-90">
-                  Você está a apenas R$ 2.200 de completar sua meta de viagem! 
-                  Que tal guardar mais R$ 550 por mês?
-                </p>
+        {goals.length > 0 && (
+          <Card variant="chat-primary" className="animate-fade-in">
+            <CardContent className="p-4">
+              <div className="flex items-start gap-3">
+                <Sparkles className="w-5 h-5 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-sm font-medium">Dica do LuminiFin</p>
+                  <p className="text-sm mt-1 opacity-90">
+                    {(() => {
+                      const almostComplete = goals.find(g => (g.currentAmount / g.targetAmount) >= 0.8);
+                      if (almostComplete) {
+                        const remaining = almostComplete.targetAmount - almostComplete.currentAmount;
+                        return `Você está pertinho de completar sua meta "${almostComplete.title}"! Faltam apenas R$ ${remaining.toFixed(2)}!`;
+                      }
+                      return "Continue trabalhando em suas metas financeiras. Cada pequeno passo conta! 💪";
+                    })()}
+                  </p>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </AppLayout>
   );
