@@ -51,3 +51,18 @@ out
 .turbo
 .next
 coverage
+# Documentation (internal only)
+ANALISE_PROJETO.md
+*.tmp.md
+.docs
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Database
+*.db
+*.sqlite
+*.sqlite3

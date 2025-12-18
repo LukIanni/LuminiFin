@@ -8,8 +8,7 @@ export interface Goal {
   title: string;
   targetAmount: number;
   currentAmount: number;
-  deadline?: Date;
-  icon?: string;
+  deadline?: string | Date;
 }
 
 interface GoalCardProps {
@@ -80,7 +79,7 @@ export function GoalCard({ goal, onClick }: GoalCardProps) {
             {goal.deadline && (
               <p className="text-xs text-muted-foreground mt-2">
                 Meta para{" "}
-                {goal.deadline.toLocaleDateString("pt-BR", {
+                {new Date(goal.deadline).toLocaleDateString("pt-BR", {
                   month: "long",
                   year: "numeric",
                 })}

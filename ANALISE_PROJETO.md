@@ -22,7 +22,7 @@
 - [x] Categorização automática (Mercado, Alimentação, Transporte, Saúde, Outros)
 - [x] Armazenamento em banco de dados PostgreSQL
 
-### 🎯 Gestão de Metas
+### 🎯 Gestão de Metas // Criar do zero
 - [x] Criação de metas financeiras
 - [x] Listagem de metas por usuário
 - [x] Atualização de metas
@@ -31,7 +31,7 @@
 - [x] Visualização de deadline
 - [x] Armazenamento em banco de dados
 
-### 📊 Relatórios e Estatísticas
+### 📊 Relatórios e Estatísticas // Criar do zero
 - [x] Gráfico de pizza com gastos por categoria
 - [x] Cards de resumo (Gastos do mês, Economizado, Saldo, Média diária)
 - [x] Lista de transações recentes
@@ -209,7 +209,11 @@
   - Integration tests
   - E2E tests
 
+
+- [ ] **Protocolo MCP**
+
 ---
+
 
 ## 🔴 CRÍTICO PARA FUNCIONAR 100%
 

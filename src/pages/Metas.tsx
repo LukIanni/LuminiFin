@@ -1,13 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { GoalCard, Goal } from "@/components/goals/GoalCard";
-import { Button } from "@/components/ui/button";
-import { Plus, Sparkles } from "lucide-react";
+import { CreateGoalDialog } from "@/components/goals/CreateGoalDialog";
+import { EditGoalDialog } from "@/components/goals/EditGoalDialog";
+import { Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useGoals } from "@/contexts/GoalsContext";
 
 export default function Metas() {
   const { goals, fetchGoals } = useGoals();
+  const [selectedGoal, setSelectedGoal] = useState<Goal | null>(null);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   useEffect(() => {
     fetchGoals();
@@ -46,10 +49,7 @@ export default function Metas() {
         <section aria-label="Lista de metas">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-foreground">Suas metas</h2>
-            <Button variant="ghost" size="sm" className="text-primary">
-              <Plus className="w-4 h-4 mr-1" />
-              Nova meta
-            </Button>
+            <CreateGoalDialog />
           </div>
 
           {goals.length === 0 ? (
@@ -68,7 +68,13 @@ export default function Metas() {
                   style={{ animationDelay: `${index * 100}ms` }}
                   className="animate-slide-up"
                 >
-                  <GoalCard goal={goal} />
+                  <GoalCard 
+                    goal={goal}
+                    onClick={() => {
+                      setSelectedGoal(goal);
+                      setEditDialogOpen(true);
+                    }}
+                  />
                 </div>
               ))}
             </div>
@@ -99,6 +105,12 @@ export default function Metas() {
           </Card>
         )}
       </div>
+
+      <EditGoalDialog
+        goal={selectedGoal}
+        open={editDialogOpen}
+        onOpenChange={setEditDialogOpen}
+      />
     </AppLayout>
   );
 }
