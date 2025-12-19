@@ -123,6 +123,28 @@ class ApiClient {
     return response.data;
   }
 
+  // Generic post method for custom requests
+  async post<T = any>(url: string, data?: any) {
+    const response = await this.client.post<T>(url, data);
+    return response;
+  }
+
+  // AI endpoints
+  async classifyExpense(description: string) {
+    const response = await this.client.post('/ai/classify-expense', { description });
+    return response.data;
+  }
+
+  async generateGoalsTips(goals: any[]) {
+    const response = await this.client.post('/ai/goals-tips', { goals });
+    return response.data;
+  }
+
+  async sendChatMessage(message: string, history?: any[]) {
+    const response = await this.client.post('/ai/chat', { message, history });
+    return response.data;
+  }
+
   setToken(token: string) {
     this.token = token;
     localStorage.setItem('authToken', token);

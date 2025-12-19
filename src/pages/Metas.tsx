@@ -3,6 +3,7 @@ import { AppLayout } from "@/components/layout/AppLayout";
 import { GoalCard, Goal } from "@/components/goals/GoalCard";
 import { CreateGoalDialog } from "@/components/goals/CreateGoalDialog";
 import { EditGoalDialog } from "@/components/goals/EditGoalDialog";
+import { GoalsTipsCard } from "@/components/goals/GoalsTipsCard";
 import { Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useGoals } from "@/contexts/GoalsContext";
@@ -81,29 +82,10 @@ export default function Metas() {
           )}
         </section>
 
-        {/* AI tip */}
-        {goals.length > 0 && (
-          <Card variant="chat-primary" className="animate-fade-in">
-            <CardContent className="p-4">
-              <div className="flex items-start gap-3">
-                <Sparkles className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-sm font-medium">Dica do LuminiFin</p>
-                  <p className="text-sm mt-1 opacity-90">
-                    {(() => {
-                      const almostComplete = goals.find(g => (g.currentAmount / g.targetAmount) >= 0.8);
-                      if (almostComplete) {
-                        const remaining = almostComplete.targetAmount - almostComplete.currentAmount;
-                        return `Você está pertinho de completar sua meta "${almostComplete.title}"! Faltam apenas R$ ${remaining.toFixed(2)}!`;
-                      }
-                      return "Continue trabalhando em suas metas financeiras. Cada pequeno passo conta! 💪";
-                    })()}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
+        {/* AI Tips */}
+        <section aria-label="Dicas inteligentes">
+          <GoalsTipsCard />
+        </section>
       </div>
 
       <EditGoalDialog

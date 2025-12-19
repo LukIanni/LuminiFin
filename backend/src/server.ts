@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
 import expensesRoutes from "./routes/expenses.js";
 import goalsRoutes from "./routes/goals.js";
+import aiRoutes from "./routes/ai.js";
 
 // Carregar .env da raiz do backend
 dotenv.config();
@@ -49,6 +50,7 @@ app.get("/health", (req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expensesRoutes);
 app.use("/api/goals", goalsRoutes);
+app.use("/api/ai", aiRoutes);
 
 // Rota 404
 app.use("*", (req, res) => {

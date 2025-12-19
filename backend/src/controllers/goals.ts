@@ -28,7 +28,14 @@ export const createGoal = async (req: Request, res: Response) => {
       updatedAt: new Date(),
     }).returning();
 
-    res.status(201).json(newGoal[0]);
+    // Converter valores de volta para número
+    const result = {
+      ...newGoal[0],
+      targetAmount: parseFloat(newGoal[0].targetAmount as any),
+      currentAmount: parseFloat(newGoal[0].currentAmount as any),
+    };
+
+    res.status(201).json(result);
   } catch (error) {
     console.error("❌ Erro ao criar meta:", error);
     res.status(500).json({ error: "Erro ao criar meta" });
