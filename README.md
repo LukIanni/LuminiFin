@@ -224,17 +224,6 @@ Receba dicas personalizadas baseadas em seus hábitos financeiros:
 - ✅ Histórico de transações com paginação
 - ✅ Modal para detalhes completos de transações
 
-## 📈 Roadmap Futuro
-
-- [ ] Exportar relatórios em PDF
-- [ ] Integração com bancos via API aberta
-- [ ] Previsão de gastos com IA
-- [ ] Comparativo com períodos anteriores
-- [ ] Notificações push para metas
-- [ ] Suporte multi-moeda
-- [ ] Dashboard customizável
-- [ ] Análise de padrões de gasto
-
 ## 🤝 Contribuições
 
 Contribuições são bem-vindas! Sinta-se livre para:
@@ -249,7 +238,7 @@ Este projeto foi desenvolvido como parte do BOOTCAMP Caixa de Inteligência Arti
 ## 📞 Contato
 
 **Desenvolvedor**: Lukas Ianni
-**Email**: [seu-email@example.com]
+**Email**: [ianni.lukas5@gmail.com]
 **GitHub**: [@LukIanni](https://github.com/LukIanni)
 
 ---
