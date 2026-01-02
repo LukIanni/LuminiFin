@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.js";
 import expensesRoutes from "./routes/expenses.js";
 import goalsRoutes from "./routes/goals.js";
 import aiRoutes from "./routes/ai.js";
+import balanceRoutes from "./routes/balance.js";
 
 // Carregar .env da raiz do backend
 dotenv.config();
@@ -49,6 +50,7 @@ app.get("/health", (req, res) => {
 // Rotas
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expensesRoutes);
+app.use("/api/balance", balanceRoutes);
 app.use("/api/goals", goalsRoutes);
 app.use("/api/ai", aiRoutes);
 

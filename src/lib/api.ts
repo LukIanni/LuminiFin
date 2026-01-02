@@ -103,6 +103,27 @@ class ApiClient {
     return response.data;
   }
 
+  // Balance endpoints
+  async getBalance() {
+    const response = await this.client.get('/balance');
+    return response.data;
+  }
+
+  async setBalance(balance: number) {
+    const response = await this.client.post('/balance', { balance });
+    return response.data;
+  }
+
+  async addBalance(amount: number) {
+    const response = await this.client.post('/balance/add', { amount });
+    return response.data;
+  }
+
+  async subtractBalance(amount: number) {
+    const response = await this.client.post('/balance/subtract', { amount });
+    return response.data;
+  }
+
   async getGoals() {
     const response = await this.client.get('/goals');
     return response.data;

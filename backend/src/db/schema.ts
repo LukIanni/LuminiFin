@@ -8,6 +8,7 @@ export const users = pgTable("users", {
   name: text("name").notNull(),
   password: text("password").notNull(),
   avatar: text("avatar"),
+  balance: numeric("balance", { precision: 10, scale: 2 }).notNull().default("0"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
@@ -19,7 +20,7 @@ export const expenses = pgTable("expenses", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
-  category: varchar("category", { length: 50 }).notNull(),
+  category: varchar("category", { length: 100 }).notNull(),
   description: text("description"),
   date: timestamp("date").notNull().defaultNow(),
   createdAt: timestamp("created_at").notNull().defaultNow(),

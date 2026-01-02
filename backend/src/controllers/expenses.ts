@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { db } from "../db/index.js";
-import { expenses } from "../db/schema.js";
+import { expenses, users } from "../db/schema.js";
 import { eq, and } from "drizzle-orm";
 
 export const createExpense = async (req: Request, res: Response) => {
@@ -16,9 +16,16 @@ export const createExpense = async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Campos obrigatórios faltando" });
     }
 
+    // Validar se amount é um número válido
+    const numAmount = parseFloat(amount);
+    if (isNaN(numAmount) || numAmount <= 0) {
+      return res.status(400).json({ error: "Valor inválido" });
+    }
+
+    // Criar a despesa com amount como número
     const newExpense = await db.insert(expenses).values({
       userId,
-      amount: amount.toString(),
+      amount: numAmount.toString(),
       category,
       description,
       date: new Date(date),
@@ -46,7 +53,13 @@ export const getExpenses = async (req: Request, res: Response) => {
       .from(expenses)
       .where(eq(expenses.userId, userId));
 
-    res.status(200).json(userExpenses);
+    // Converter amount de string para número
+    const expensesWithNumbers = userExpenses.map(expense => ({
+      ...expense,
+      amount: parseFloat(expense.amount)
+    }));
+
+    res.status(200).json(expensesWithNumbers);
   } catch (error) {
     console.error("❌ Erro ao buscar despesas:", error);
     res.status(500).json({ error: "Erro ao buscar despesas" });

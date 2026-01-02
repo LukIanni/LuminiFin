@@ -14,7 +14,10 @@ interface SpendingChartProps {
 }
 
 export function SpendingChart({ data, title = "Gastos por Categoria" }: SpendingChartProps) {
-  const total = data.reduce((sum, item) => sum + item.value, 0);
+  const total = data.reduce((sum, item) => {
+    const value = typeof item.value === 'string' ? parseFloat(item.value) : item.value;
+    return sum + (isNaN(value) ? 0 : value);
+  }, 0);
 
   return (
     <Card variant="elevated" className="animate-fade-in">
@@ -45,10 +48,13 @@ export function SpendingChart({ data, title = "Gastos por Categoria" }: Spending
                 ))}
               </Pie>
               <Tooltip
-                formatter={(value: number) => [
-                  `R$ ${value.toLocaleString("pt-BR")}`,
-                  "Valor",
-                ]}
+                formatter={(value: number | string, name: string, props: any) => {
+                  const numValue = typeof value === 'string' ? parseFloat(value) : value;
+                  const category = props.payload.name;
+                  return [
+                    `${category} - R$ ${numValue.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+                  ];
+                }}
                 contentStyle={{
                   backgroundColor: "hsl(var(--card))",
                   border: "1px solid hsl(var(--border))",
@@ -69,7 +75,7 @@ export function SpendingChart({ data, title = "Gastos por Categoria" }: Spending
         <div className="text-center mt-4 pt-4 border-t border-border">
           <p className="text-sm text-muted-foreground">Total do período</p>
           <p className="text-2xl font-bold text-foreground">
-            R$ {total.toLocaleString("pt-BR")}
+            R$ {total.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </p>
         </div>
       </CardContent>

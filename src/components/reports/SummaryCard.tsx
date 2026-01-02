@@ -18,13 +18,17 @@ export function SummaryCard({
   format = "currency" 
 }: SummaryCardProps) {
   const formatValue = () => {
+    // Garantir que value é sempre um número
+    const numValue = typeof value === 'string' ? parseFloat(value) : value;
+    const finalValue = isNaN(numValue) ? 0 : numValue;
+
     switch (format) {
       case "currency":
-        return `R$ ${value.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`;
+        return `R$ ${finalValue.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       case "percent":
-        return `${value.toFixed(1)}%`;
+        return `${finalValue.toFixed(1)}%`;
       default:
-        return value.toLocaleString("pt-BR");
+        return finalValue.toLocaleString("pt-BR", { minimumFractionDigits: 0, maximumFractionDigits: 2 });
     }
   };
 

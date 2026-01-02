@@ -148,7 +148,9 @@ export class GeminiService {
       }
 
       console.log("🚀 Iniciando classificação de gasto...");
-      const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+      // Usando Gemini 3.0 Flash (mais rápido e eficiente)
+        const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+      // const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
       console.log("✅ Modelo Gemini carregado");
 
       const chat = model.startChat({
@@ -202,7 +204,10 @@ export class GeminiService {
    */
   static async generateGoalsTips(goalsData: string): Promise<GoalsTipsResult> {
     try {
+      // Usando Gemini 3.0 Flash (mais rápido e eficiente)
       const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+      // Alternativa: gemini-2.0-flash (versão anterior, mais estável)
+      // const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
       const result = await model.generateContent(
         `${GOALS_TIPS_PROMPT}\n\nMetas do usuário:\n${goalsData}`
@@ -236,6 +241,7 @@ export class GeminiService {
       }
 
       const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
+      // const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
       const systemInstruction = `Você é LuminiFin, um assistente financeiro amigável e prestativo.
 Você ajuda usuários a gerenciar suas finanças, classificar gastos, alcançar metas e tomar decisões financeiras inteligentes.
