@@ -214,16 +214,6 @@ Receba dicas personalizadas baseadas em seus hábitos financeiros:
 - ✅ Validação de entrada
 - ✅ Dados isolados por usuário
 
-## 🐛 Melhorias Recentes
-
-### Página de Relatórios Aprimorada
-- ✅ Corrigido armazenamento de valores (numeric em vez de string)
-- ✅ Seletor de período minimalista
-- ✅ Saldo editável e gerenciável
-- ✅ Gráfico com tooltips informativos
-- ✅ Histórico de transações com paginação
-- ✅ Modal para detalhes completos de transações
-
 ## 🤝 Contribuições
 
 Contribuições são bem-vindas! Sinta-se livre para:
